@@ -46,7 +46,37 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == GPIO_PIN_2)
+	{
+		// nejaky button
+		pwm_red(255);
+		pwm_green(0);
+		pwm_blue(0);
+	}
+	else if (GPIO_Pin == GPIO_PIN_5)
+	{
+		// iny button
+		pwm_red(0);
+		pwm_green(255);
+		pwm_blue(0);
+	}
+	else if (GPIO_Pin == GPIO_PIN_6)
+	{
+		// iny button
+		pwm_red(0);
+		pwm_green(0);
+		pwm_blue(255);
+	}
+	else if (GPIO_Pin == GPIO_PIN_7)
+	{
+		// iny button
+		pwm_red(255);
+		pwm_green(255);
+		pwm_blue(255);
+	}
+}
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,9 +131,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	   pwm_red(rand() % 256);
-	   pwm_green(rand() % 256);
-	   pwm_blue(rand() % 256);
+//	   pwm_red(rand() % 256);
+//	   pwm_green(rand() % 256);
+//	   pwm_blue(rand() % 256);
 
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
