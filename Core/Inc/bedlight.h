@@ -28,5 +28,10 @@ uint8_t pressed_button3();
 uint8_t pressed_button4();
 uint8_t pressed_button_count();
 
+void button1_callback();
+void button2_callback();
+void button3_callback();
+void button4_callback();
+
 
 #endif /* INC_BEDLIGHT_H_ */

@@ -10,7 +10,25 @@
 
 bedlight_t g_bedlight;
 
+__weak void button1_callback()
+{
 
+}
+
+__weak void button2_callback()
+{
+
+}
+
+__weak void button3_callback()
+{
+
+}
+
+__weak void button4_callback()
+{
+
+}
 
 void bedlight_process()
 {
@@ -28,28 +46,28 @@ void bedlight_process()
 
 	if (g_bedlight.button1_flag)
 	{
-		pwm(255, 0, 0);
+		button1_callback();
 
 		g_bedlight.button1_flag = 0;		// clear flag
 	}
 
 	if (g_bedlight.button2_flag)
 	{
-		pwm(0, 255, 0);
+		button2_callback();
 
 		g_bedlight.button2_flag = 0;		// clear flag
 	}
 
 	if (g_bedlight.button3_flag)
 	{
-		pwm(0, 0, 255);
+		button3_callback();
 
 		g_bedlight.button3_flag = 0;		// clear flag
 	}
 
 	if (g_bedlight.button4_flag)
 	{
-		pwm(255, 255, 255);
+		button4_callback();
 
 		g_bedlight.button4_flag = 0;		// clear flag
 	}
