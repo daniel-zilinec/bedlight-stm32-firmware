@@ -30,7 +30,13 @@ __weak void button4_callback()
 
 }
 
-void bedlight_process()
+__weak void cycle_callback()
+{
+
+}
+
+
+void bedlight_process(uint32_t cycle_time)
 {
 	if ((g_bedlight.button1_flag + g_bedlight.button2_flag + g_bedlight.button3_flag + g_bedlight.button4_flag) > 1)
 	{
@@ -72,7 +78,8 @@ void bedlight_process()
 		g_bedlight.button4_flag = 0;		// clear flag
 	}
 
-
+	g_bedlight.timer += cycle_time;
+	cycle_callback();
 }
 
 uint8_t pressed_button1()

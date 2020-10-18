@@ -40,7 +40,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -143,8 +142,8 @@ int main(void)
 		  g_bedlight.button4_flag = 1;
 	  }
 
-	  bedlight_process();
-	  HAL_Delay(100);
+	  bedlight_process(BEDLIGHT_CYCLE_TIME_MS);
+	  HAL_Delay(BEDLIGHT_CYCLE_TIME_MS);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
