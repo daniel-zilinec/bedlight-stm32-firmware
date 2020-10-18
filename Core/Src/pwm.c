@@ -42,3 +42,10 @@ void pwm_green(uint16_t value)
     HAL_TIM_PWM_ConfigChannel(&htim22, &sConfigOC, TIM_CHANNEL_2);
     HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
 }
+
+void pwm(uint16_t red, uint16_t green, uint16_t blue)
+{
+	pwm_red(red);
+	pwm_green(green);
+	pwm_blue(blue);
+}

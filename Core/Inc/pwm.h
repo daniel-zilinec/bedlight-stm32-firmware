@@ -14,6 +14,7 @@
 void pwm_red(uint16_t value);
 void pwm_green(uint16_t value);
 void pwm_blue(uint16_t value);
+void pwm(uint16_t red, uint16_t green, uint16_t blue);
 
 
 #endif /* SRC_PWM_H_ */

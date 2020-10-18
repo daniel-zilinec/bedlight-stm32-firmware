@@ -25,7 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdlib.h>
-
+#include "bedlight.h"
 #include "pwm.h"
 /* USER CODE END Includes */
 
@@ -46,37 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-	if (GPIO_Pin == GPIO_PIN_2)
-	{
-		// nejaky button
-		pwm_red(255);
-		pwm_green(0);
-		pwm_blue(0);
-	}
-	else if (GPIO_Pin == GPIO_PIN_5)
-	{
-		// iny button
-		pwm_red(0);
-		pwm_green(255);
-		pwm_blue(0);
-	}
-	else if (GPIO_Pin == GPIO_PIN_6)
-	{
-		// iny button
-		pwm_red(0);
-		pwm_green(0);
-		pwm_blue(255);
-	}
-	else if (GPIO_Pin == GPIO_PIN_7)
-	{
-		// iny button
-		pwm_red(255);
-		pwm_green(255);
-		pwm_blue(255);
-	}
-}
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,7 +57,25 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == GPIO_PIN_2)  // BUTTON 4
+	{
+		g_bedlight.button4_flag = 1;
+	}
+	else if (GPIO_Pin == GPIO_PIN_5)	// BUTTON 1
+	{
+		g_bedlight.button1_flag = 1;
+	}
+	else if (GPIO_Pin == GPIO_PIN_6)	// BUTTON 2
+	{
+		g_bedlight.button2_flag = 1;
+	}
+	else if (GPIO_Pin == GPIO_PIN_7)	// BUTTON 3
+	{
+		g_bedlight.button3_flag = 1;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -131,11 +119,32 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	   pwm_red(rand() % 256);
-//	   pwm_green(rand() % 256);
-//	   pwm_blue(rand() % 256);
+	  // BUTTON 1
+	  if (HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin) == GPIO_PIN_RESET)
+	  {
+		  g_bedlight.button1_flag = 1;
+	  }
 
-	  HAL_Delay(1000);
+	  // BUTTON 2
+	  if (HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin) == GPIO_PIN_RESET)
+	  {
+		  g_bedlight.button2_flag = 1;
+	  }
+
+	  // BUTTON 3
+	  if (HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin) == GPIO_PIN_RESET)
+	  {
+		  g_bedlight.button3_flag = 1;
+	  }
+
+	  // BUTTON 4
+	  if (HAL_GPIO_ReadPin(BUTTON4_GPIO_Port, BUTTON4_Pin) == GPIO_PIN_RESET)
+	  {
+		  g_bedlight.button4_flag = 1;
+	  }
+
+	  bedlight_process();
+	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
