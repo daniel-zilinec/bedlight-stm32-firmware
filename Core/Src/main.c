@@ -58,22 +58,22 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (GPIO_Pin == GPIO_PIN_2)  // BUTTON 4
-	{
-		g_bedlight.button4_flag = 1;
-	}
-	else if (GPIO_Pin == GPIO_PIN_5)	// BUTTON 1
-	{
-		g_bedlight.button1_flag = 1;
-	}
-	else if (GPIO_Pin == GPIO_PIN_6)	// BUTTON 2
-	{
-		g_bedlight.button2_flag = 1;
-	}
-	else if (GPIO_Pin == GPIO_PIN_7)	// BUTTON 3
-	{
-		g_bedlight.button3_flag = 1;
-	}
+//	if (GPIO_Pin == GPIO_PIN_2)  // BUTTON 4
+//	{
+//		g_bedlight.button4_flag = 1;
+//	}
+//	else if (GPIO_Pin == GPIO_PIN_5)	// BUTTON 1
+//	{
+//		g_bedlight.button1_flag = 1;
+//	}
+//	else if (GPIO_Pin == GPIO_PIN_6)	// BUTTON 2
+//	{
+//		g_bedlight.button2_flag = 1;
+//	}
+//	else if (GPIO_Pin == GPIO_PIN_7)	// BUTTON 3
+//	{
+//		g_bedlight.button3_flag = 1;
+//	}
 }
 /* USER CODE END 0 */
 
@@ -118,32 +118,44 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  // BUTTON 1
-	  if (HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin) == GPIO_PIN_RESET)
+	  // if device is enabled
+	  if (g_bedlight.power_off == 0)
 	  {
-		  g_bedlight.button1_flag = 1;
-	  }
+		  if (g_bedlight.button1_flag)
+		  {
+			  button1_callback();
+		  }
 
-	  // BUTTON 2
-	  if (HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin) == GPIO_PIN_RESET)
+		  if (g_bedlight.button2_flag)
+		  {
+			  button2_callback();
+		  }
+
+		  if (g_bedlight.button3_flag)
+		  {
+			  button3_callback();
+		  }
+
+		  if (g_bedlight.button4_flag)
+		  {
+			  button4_callback();
+		  }
+	  }
+	  else		// device disabled
 	  {
-		  g_bedlight.button2_flag = 1;
-	  }
+		  if (	g_bedlight.button1_flag ||		// some button pressed
+				g_bedlight.button2_flag ||
+				g_bedlight.button3_flag ||
+				g_bedlight.button4_flag)
+		  {
+			  g_bedlight.power_off = 0;		// wake up
+		  }
 
-	  // BUTTON 3
-	  if (HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin) == GPIO_PIN_RESET)
-	  {
-		  g_bedlight.button3_flag = 1;
+		  else
+		  {
+			  pwm(0, 0, 0);
+		  }
 	  }
-
-	  // BUTTON 4
-	  if (HAL_GPIO_ReadPin(BUTTON4_GPIO_Port, BUTTON4_Pin) == GPIO_PIN_RESET)
-	  {
-		  g_bedlight.button4_flag = 1;
-	  }
-
-	  bedlight_process(BEDLIGHT_CYCLE_TIME_MS);
-	  HAL_Delay(BEDLIGHT_CYCLE_TIME_MS);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

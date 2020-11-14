@@ -12,14 +12,20 @@
 #include "pwm.h"
 
 #define BEDLIGHT_CYCLE_TIME_MS	100
+#define BEDLIGHT_BUTTON_MIN_TIME	100			// minimal time in ms to consider button as pressed
 
 typedef struct
 {
+	uint32_t button1_counter;
+	uint32_t button2_counter;
+	uint32_t button3_counter;
+	uint32_t button4_counter;
 	uint8_t button1_flag;
 	uint8_t button2_flag;
 	uint8_t button3_flag;
 	uint8_t button4_flag;
 	uint32_t timer;				// count time in milliseconds
+	uint8_t power_off;
 } bedlight_t;
 
 extern bedlight_t g_bedlight;

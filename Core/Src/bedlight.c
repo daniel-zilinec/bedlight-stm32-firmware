@@ -124,7 +124,7 @@ uint8_t pressed_button3()
 
 uint8_t pressed_button4()
 {
-	  if (HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin) == GPIO_PIN_RESET)
+	  if (HAL_GPIO_ReadPin(BUTTON4_GPIO_Port, BUTTON4_Pin) == GPIO_PIN_RESET)
 	  {
 		  return 1;
 	  }
