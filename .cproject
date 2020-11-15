@@ -73,9 +73,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="timer_1day.c|empty_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bedlight_profiles"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="timer_1day.c|empty_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bedlight_profiles"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -151,9 +151,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="timer_1day.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bedlight_profiles"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="timer_1day.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bedlight_profiles"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
