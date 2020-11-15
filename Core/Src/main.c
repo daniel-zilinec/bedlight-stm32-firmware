@@ -56,25 +56,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-//	if (GPIO_Pin == GPIO_PIN_2)  // BUTTON 4
-//	{
-//		g_bedlight.button4_flag = 1;
-//	}
-//	else if (GPIO_Pin == GPIO_PIN_5)	// BUTTON 1
-//	{
-//		g_bedlight.button1_flag = 1;
-//	}
-//	else if (GPIO_Pin == GPIO_PIN_6)	// BUTTON 2
-//	{
-//		g_bedlight.button2_flag = 1;
-//	}
-//	else if (GPIO_Pin == GPIO_PIN_7)	// BUTTON 3
-//	{
-//		g_bedlight.button3_flag = 1;
-//	}
-}
+
 /* USER CODE END 0 */
 
 /**

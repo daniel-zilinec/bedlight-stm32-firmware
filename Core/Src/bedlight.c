@@ -36,51 +36,6 @@ __weak void cycle_callback()
 }
 
 
-void bedlight_process(uint32_t cycle_time)
-{
-	if ((g_bedlight.button1_flag + g_bedlight.button2_flag + g_bedlight.button3_flag + g_bedlight.button4_flag) > 1)
-	{
-		pwm(0, 0, 0);
-
-		while (pressed_button_count() != 0);
-
-		g_bedlight.button1_flag = 0;
-		g_bedlight.button2_flag = 0;
-		g_bedlight.button3_flag = 0;
-		g_bedlight.button4_flag = 0;
-	}
-
-	if (g_bedlight.button1_flag)
-	{
-		button1_callback();
-
-		g_bedlight.button1_flag = 0;		// clear flag
-	}
-
-	if (g_bedlight.button2_flag)
-	{
-		button2_callback();
-
-		g_bedlight.button2_flag = 0;		// clear flag
-	}
-
-	if (g_bedlight.button3_flag)
-	{
-		button3_callback();
-
-		g_bedlight.button3_flag = 0;		// clear flag
-	}
-
-	if (g_bedlight.button4_flag)
-	{
-		button4_callback();
-
-		g_bedlight.button4_flag = 0;		// clear flag
-	}
-
-	g_bedlight.timer += cycle_time;
-	cycle_callback();
-}
 
 uint8_t pressed_button1()
 {

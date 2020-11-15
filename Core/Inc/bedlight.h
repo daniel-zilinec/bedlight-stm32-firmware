@@ -11,7 +11,6 @@
 #include "stdio.h"
 #include "pwm.h"
 
-#define BEDLIGHT_CYCLE_TIME_MS	100
 #define BEDLIGHT_BUTTON_MIN_TIME	100			// minimal time in ms to consider button as pressed
 
 typedef struct
@@ -30,7 +29,6 @@ typedef struct
 
 extern bedlight_t g_bedlight;
 
-void bedlight_process(uint32_t cycle_time);
 uint8_t pressed_button1();
 uint8_t pressed_button2();
 uint8_t pressed_button3();
