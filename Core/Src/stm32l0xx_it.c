@@ -126,6 +126,9 @@ void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
+	// Increment BedLight internal timer
+	++g_bedlight.timer;
+
 	// Read button states and increment it's counters if pressed
 
 	// BUTTON 1

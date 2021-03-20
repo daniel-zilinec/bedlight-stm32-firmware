@@ -94,6 +94,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim21, TIM_CHANNEL_2);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -138,6 +139,8 @@ int main(void)
 			  pwm(0, 0, 0);
 		  }
 	  }
+
+	  cycle_callback();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
