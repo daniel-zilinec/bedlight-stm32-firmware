@@ -95,6 +95,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim21, TIM_CHANNEL_2);
 
+  // while (1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
