@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -50,6 +51,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -99,50 +101,17 @@ int main(void)
 
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  // if device is enabled
-	  if (g_bedlight.power_off == 0)
-	  {
-		  if (g_bedlight.button1_flag)
-		  {
-			  button1_callback();
-		  }
 
-		  if (g_bedlight.button2_flag)
-		  {
-			  button2_callback();
-		  }
-
-		  if (g_bedlight.button3_flag)
-		  {
-			  button3_callback();
-		  }
-
-		  if (g_bedlight.button4_flag)
-		  {
-			  button4_callback();
-		  }
-	  }
-	  else		// device disabled
-	  {
-		  if (	g_bedlight.button1_flag ||		// some button pressed
-				g_bedlight.button2_flag ||
-				g_bedlight.button3_flag ||
-				g_bedlight.button4_flag)
-		  {
-			  g_bedlight.power_off = 0;		// wake up
-		  }
-
-		  else
-		  {
-			  pwm(0, 0, 0);
-		  }
-	  }
-
-	  cycle_callback();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -192,6 +161,27 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+ /**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM2 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM2) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

@@ -57,6 +57,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN EV */
 
@@ -91,131 +92,6 @@ void HardFault_Handler(void)
     /* USER CODE BEGIN W1_HardFault_IRQn 0 */
     /* USER CODE END W1_HardFault_IRQn 0 */
   }
-}
-
-/**
-  * @brief This function handles System service call via SWI instruction.
-  */
-void SVC_Handler(void)
-{
-  /* USER CODE BEGIN SVC_IRQn 0 */
-
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
-
-  /* USER CODE END SVC_IRQn 1 */
-}
-
-/**
-  * @brief This function handles Pendable request for system service.
-  */
-void PendSV_Handler(void)
-{
-  /* USER CODE BEGIN PendSV_IRQn 0 */
-
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
-
-  /* USER CODE END PendSV_IRQn 1 */
-}
-
-/**
-  * @brief This function handles System tick timer.
-  */
-void SysTick_Handler(void)
-{
-  /* USER CODE BEGIN SysTick_IRQn 0 */
-
-	// Increment BedLight internal timer
-	++g_bedlight.timer;
-
-	// Read button states and increment it's counters if pressed
-
-	// BUTTON 1
-	if (pressed_button1())
-	{
-		++g_bedlight.button1_counter;
-	}
-	else
-	{
-		g_bedlight.button1_counter = 0;
-	}
-
-	// BUTTON 2
-	if (pressed_button2())
-	{
-		++g_bedlight.button2_counter;
-	}
-	else
-	{
-		g_bedlight.button2_counter = 0;
-	}
-
-	// BUTTON 3
-	if (pressed_button3())
-	{
-		++g_bedlight.button3_counter;
-	}
-	else
-	{
-		g_bedlight.button3_counter = 0;
-	}
-
-	// BUTTON 4
-	if (pressed_button4())
-	{
-		++g_bedlight.button4_counter;
-	}
-	else
-	{
-		g_bedlight.button4_counter = 0;
-	}
-
-	// set button pressed flag if it is pressed for long enough
-	if (g_bedlight.button1_counter == BEDLIGHT_BUTTON_MIN_TIME)
-	{
-		g_bedlight.button1_flag = 1;
-	}
-
-	if (g_bedlight.button2_counter == BEDLIGHT_BUTTON_MIN_TIME)
-	{
-		g_bedlight.button2_flag = 1;
-	}
-
-	if (g_bedlight.button3_counter == BEDLIGHT_BUTTON_MIN_TIME)
-	{
-		g_bedlight.button3_flag = 1;
-	}
-
-	if (g_bedlight.button4_counter == BEDLIGHT_BUTTON_MIN_TIME)
-	{
-		g_bedlight.button4_flag = 1;
-	}
-
-	// power-off if at least 2 buttons are pressed
-	if ( pressed_button_count() >= 2)
-	{
-		// clear counters
-//		g_bedlight.button1_counter = 0;
-//		g_bedlight.button2_counter = 0;
-//		g_bedlight.button3_counter = 0;
-//		g_bedlight.button4_counter = 0;
-
-		// clear flags
-		g_bedlight.button1_flag = 0;
-		g_bedlight.button2_flag = 0;
-		g_bedlight.button3_flag = 0;
-		g_bedlight.button4_flag = 0;
-
-		// power off
-		g_bedlight.power_off = 1;
-	}
-
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-  /* USER CODE BEGIN SysTick_IRQn 1 */
-
-  /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -253,6 +129,103 @@ void EXTI4_15_IRQHandler(void)
   /* USER CODE BEGIN EXTI4_15_IRQn 1 */
 
   /* USER CODE END EXTI4_15_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM2 global interrupt.
+  */
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+	// Increment BedLight internal timer
+		++g_bedlight.timer;
+
+		// Read button states and increment it's counters if pressed
+
+		// BUTTON 1
+		if (pressed_button1())
+		{
+			++g_bedlight.button1_counter;
+		}
+		else
+		{
+			g_bedlight.button1_counter = 0;
+		}
+
+		// BUTTON 2
+		if (pressed_button2())
+		{
+			++g_bedlight.button2_counter;
+		}
+		else
+		{
+			g_bedlight.button2_counter = 0;
+		}
+
+		// BUTTON 3
+		if (pressed_button3())
+		{
+			++g_bedlight.button3_counter;
+		}
+		else
+		{
+			g_bedlight.button3_counter = 0;
+		}
+
+		// BUTTON 4
+		if (pressed_button4())
+		{
+			++g_bedlight.button4_counter;
+		}
+		else
+		{
+			g_bedlight.button4_counter = 0;
+		}
+
+		// set button pressed flag if it is pressed for long enough
+		if (g_bedlight.button1_counter == BEDLIGHT_BUTTON_MIN_TIME)
+		{
+			g_bedlight.button1_flag = 1;
+		}
+
+		if (g_bedlight.button2_counter == BEDLIGHT_BUTTON_MIN_TIME)
+		{
+			g_bedlight.button2_flag = 1;
+		}
+
+		if (g_bedlight.button3_counter == BEDLIGHT_BUTTON_MIN_TIME)
+		{
+			g_bedlight.button3_flag = 1;
+		}
+
+		if (g_bedlight.button4_counter == BEDLIGHT_BUTTON_MIN_TIME)
+		{
+			g_bedlight.button4_flag = 1;
+		}
+
+		// power-off if at least 2 buttons are pressed
+		if ( pressed_button_count() >= 2)
+		{
+			// clear counters
+	//		g_bedlight.button1_counter = 0;
+	//		g_bedlight.button2_counter = 0;
+	//		g_bedlight.button3_counter = 0;
+	//		g_bedlight.button4_counter = 0;
+
+			// clear flags
+			g_bedlight.button1_flag = 0;
+			g_bedlight.button2_flag = 0;
+			g_bedlight.button3_flag = 0;
+			g_bedlight.button4_flag = 0;
+
+			// power off
+			g_bedlight.power_off = 1;
+		}
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
