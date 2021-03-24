@@ -26,7 +26,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bedlight.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,6 +50,9 @@
 osThreadId defaultTaskHandle;
 uint32_t defaultTaskBuffer[ 128 ];
 osStaticThreadDef_t defaultTaskControlBlock;
+osThreadId buttonTaskHandle;
+uint32_t buttonTaskBuffer[ 128 ];
+osStaticThreadDef_t buttonTaskControlBlock;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -58,6 +60,7 @@ osStaticThreadDef_t defaultTaskControlBlock;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void StartButtonTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -108,6 +111,10 @@ void MX_FREERTOS_Init(void) {
   osThreadStaticDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128, defaultTaskBuffer, &defaultTaskControlBlock);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+  /* definition and creation of buttonTask */
+  osThreadStaticDef(buttonTask, StartButtonTask, osPriorityNormal, 0, 128, buttonTaskBuffer, &buttonTaskControlBlock);
+  buttonTaskHandle = osThreadCreate(osThread(buttonTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -121,55 +128,33 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+__weak void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   for(;;)
   {
-	  // if device is enabled
-	  if (g_bedlight.power_off == 0)
-	  {
-		  if (g_bedlight.button1_flag)
-		  {
-			  button1_callback();
-		  }
-
-		  if (g_bedlight.button2_flag)
-		  {
-			  button2_callback();
-		  }
-
-		  if (g_bedlight.button3_flag)
-		  {
-			  button3_callback();
-		  }
-
-		  if (g_bedlight.button4_flag)
-		  {
-			  button4_callback();
-		  }
-	  }
-	  else		// device disabled
-	  {
-		  if (	g_bedlight.button1_flag ||		// some button pressed
-				g_bedlight.button2_flag ||
-				g_bedlight.button3_flag ||
-				g_bedlight.button4_flag)
-		  {
-			  g_bedlight.power_off = 0;		// wake up
-		  }
-
-		  else
-		  {
-			  pwm(0, 0, 0);
-		  }
-	  }
-
-	  cycle_callback();
 	  osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_StartButtonTask */
+/**
+* @brief Function implementing the buttonTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartButtonTask */
+__weak void StartButtonTask(void const * argument)
+{
+  /* USER CODE BEGIN StartButtonTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartButtonTask */
 }
 
 /* Private application code --------------------------------------------------*/
