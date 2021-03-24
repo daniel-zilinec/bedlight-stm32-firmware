@@ -4,6 +4,8 @@
  *  Created on: Oct 18, 2020
  *      Author: dadan
  *
+ *	Description:
+ *
  *  BUTTON 1: red
  *  BUTTON 2: green
  *  BUTTON 3: blue
@@ -12,6 +14,7 @@
  *	Press button to turn on one of the colors. If 2 or more buttons are pressed the light will turn off.
  *	If DIMMING_ENABLE is 1 at build time the light will slowly decrease PWM duty cycle until DIMMING_MIN_VALUE. It will compensate eyes adaption to dark.
  */
+
 #include "bedlight.h"
 
 #define	DIMMING_ENABLED		1			// gradually decrease PWM duty cycle
