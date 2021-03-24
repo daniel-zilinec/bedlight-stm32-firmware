@@ -11,8 +11,9 @@
 #include "stdio.h"
 #include "pwm.h"
 
+#define DEFAULT_LOOP_DELAY			10
 #define BUTTON_LOOP_DELAY			10
-#define BEDLIGHT_BUTTON_MIN_TIME	100			// minimal time in ms to consider button as pressed
+#define BEDLIGHT_BUTTON_MIN_TIME	50			// minimal time in ms to consider button as pressed
 
 typedef struct
 {

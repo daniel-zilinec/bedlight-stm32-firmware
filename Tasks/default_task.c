@@ -5,6 +5,7 @@
  *      Author: hello
  */
 
+#include "main.h"
 #include "cmsis_os.h"
 #include "bedlight.h"
 
@@ -13,51 +14,59 @@ void StartDefaultTask(void const * argument)
   g_bedlight.dim_level = 255;		// no dimming
 
 
-/* Infinite loop */
-for(;;)
-{
-	  // if device is enabled
-	  if (g_bedlight.power_off == 0)
-	  {
-		  if (g_bedlight.button1_flag)
-		  {
-			  button1_callback();
-		  }
+	/* Infinite loop */
+	for(;;)
+	{
+		if (osMutexWait(bedlightMutexHandle, 10) == osOK)
+		{
+			// Critical section for g_bedlight structure
 
-		  if (g_bedlight.button2_flag)
-		  {
-			  button2_callback();
-		  }
 
-		  if (g_bedlight.button3_flag)
-		  {
-			  button3_callback();
-		  }
+			// if device is enabled
+			if (g_bedlight.power_off == 0)
+			{
+			  if (g_bedlight.button1_flag)
+			  {
+				  button1_callback();
+			  }
 
-		  if (g_bedlight.button4_flag)
-		  {
-			  button4_callback();
-		  }
-	  }
-	  else		// device disabled
-	  {
-		  if (	g_bedlight.button1_flag ||		// some button pressed
-				g_bedlight.button2_flag ||
-				g_bedlight.button3_flag ||
-				g_bedlight.button4_flag)
-		  {
-			  g_bedlight.power_off = 0;		// wake up
-		  }
+			  if (g_bedlight.button2_flag)
+			  {
+				  button2_callback();
+			  }
 
-		  else
-		  {
-			  bedlight_set_colors(0, 0, 0);
-		  }
-	  }
+			  if (g_bedlight.button3_flag)
+			  {
+				  button3_callback();
+			  }
 
-	  bedlight_update_pwm();
+			  if (g_bedlight.button4_flag)
+			  {
+				  button4_callback();
+			  }
+			}
+			else		// device disabled
+			{
+			  if (	g_bedlight.button1_flag ||		// some button pressed
+					g_bedlight.button2_flag ||
+					g_bedlight.button3_flag ||
+					g_bedlight.button4_flag)
+			  {
+				  g_bedlight.power_off = 0;		// wake up
+			  }
 
-	  cycle_callback();
-	  osDelay(1);
-  }
+			  else
+			  {
+				  bedlight_set_colors(0, 0, 0);
+			  }
+			}
+
+			bedlight_update_pwm();
+			cycle_callback();
+
+			osMutexRelease(bedlightMutexHandle);
+		}
+
+		osDelay(DEFAULT_LOOP_DELAY);
+	}
 }

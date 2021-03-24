@@ -53,6 +53,8 @@ osStaticThreadDef_t defaultTaskControlBlock;
 osThreadId buttonTaskHandle;
 uint32_t buttonTaskBuffer[ 128 ];
 osStaticThreadDef_t buttonTaskControlBlock;
+osMutexId bedlightMutexHandle;
+osStaticMutexDef_t bedlightMutexControlBlock;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -89,6 +91,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
+  /* Create the mutex(es) */
+  /* definition and creation of bedlightMutex */
+  osMutexStaticDef(bedlightMutex, &bedlightMutexControlBlock);
+  bedlightMutexHandle = osMutexCreate(osMutex(bedlightMutex));
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
