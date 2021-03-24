@@ -8,7 +8,7 @@
 
 #include "bedlight.h"
 
-bedlight_t g_bedlight;
+volatile bedlight_t g_bedlight;
 
 __weak void button1_callback()
 {
@@ -93,4 +93,41 @@ uint8_t pressed_button4()
 uint8_t pressed_button_count()
 {
 	return (pressed_button1() + pressed_button2() + pressed_button3() + pressed_button4());
+}
+
+
+/**
+ * @brief Set color settings to internal structure
+ * @param red red LED PWM duty cycle
+ * @param green green LED PWM duty cycle
+ * @param blue blue LED PWM duty cycle
+ */
+void bedlight_set_colors(uint8_t red, uint8_t green, uint8_t blue)
+{
+	g_bedlight.red = red;
+	g_bedlight.green = green;
+	g_bedlight.blue = blue;
+	g_bedlight.update_pwm = 1;
+}
+
+
+/**
+ * @brief Update PWM registers and apply dimming
+ */
+void bedlight_update_pwm()
+{
+	if (g_bedlight.update_pwm)
+	{
+		uint8_t red = 0;
+		uint8_t green = 0;
+		uint8_t blue = 0;
+		float dim = 0;
+
+		dim = (g_bedlight.dim_level / 255.0);
+		red = g_bedlight.red * dim;
+		green = g_bedlight.green * dim;
+		blue = g_bedlight.blue * dim;
+
+		pwm(red, green, blue);
+	}
 }

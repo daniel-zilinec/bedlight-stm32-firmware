@@ -10,9 +10,12 @@
 
 void StartDefaultTask(void const * argument)
 {
-  /* Infinite loop */
-  for(;;)
-  {
+  g_bedlight.dim_level = 255;		// no dimming
+
+
+/* Infinite loop */
+for(;;)
+{
 	  // if device is enabled
 	  if (g_bedlight.power_off == 0)
 	  {
@@ -48,9 +51,11 @@ void StartDefaultTask(void const * argument)
 
 		  else
 		  {
-			  pwm(0, 0, 0);
+			  bedlight_set_colors(0, 0, 0);
 		  }
 	  }
+
+	  bedlight_update_pwm();
 
 	  cycle_callback();
 	  osDelay(1);
