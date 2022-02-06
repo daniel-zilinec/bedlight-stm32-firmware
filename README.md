@@ -1,8 +1,12 @@
 # bedlight-stm32-firmware
 Firmware for programable bedlight based on ST NUCLEO-L031K6 (STM32L031K6 processor).
 
-# Binary files
-Binary files are in Releases section: https://github.com/daniel-zilinec/bedlight-stm32-firmware/releases
+# Firmware flashing instructions
+* Download binary file from Releases section: https://github.com/daniel-zilinec/bedlight-stm32-firmware/releases
+* Connect BedLight to your PC with a micro USB cable
+* BedLight will be recognised as a removable drive
+* Copy downloaded .bin file into the removable drive
+* Firmware will be flashed and started after cca 5 seconds
 
 # Nucleo upgrade
 To get rid of the Nucleo LEDs that are constantly on or even flashing it's needed to remove LEDs or this resistors:
