@@ -1,6 +1,9 @@
 # bedlight-stm32-firmware
 Firmware for programable bedlight based on ST NUCLEO-L031K6 (STM32L031K6 processor).
 
+# Binary files
+Binary files are in Releases section: https://github.com/daniel-zilinec/bedlight-stm32-firmware/releases
+
 # Nucleo upgrade
 To get rid of the Nucleo LEDs that are constantly on or even flashing it's needed to remove LEDs or this resistors:
 * R18 to disable red part of the ST-link's red/green LED LD1
