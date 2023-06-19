@@ -2,4 +2,7 @@
 /Debug/
 /Release/
 
+.settings
+.metadata
+
 
