@@ -7,8 +7,11 @@
 
 
 #include "bedlight.h"
+//#include <string.h>
 
 bedlight_t g_bedlight;
+LED_t LED_1;
+LED_t LED_2;
 
 __weak void button1_callback()
 {
@@ -35,6 +38,37 @@ __weak void cycle_callback()
 
 }
 
+
+void init_LEDs()
+{
+	LED_1.red = LED_RED1_Pin;
+	LED_1.red_port = GPIOA;
+	LED_1.green = LED_GREEN1_Pin;
+	LED_1.green_port = GPIOB;
+	LED_1.blue = LED_BLUE1_Pin;
+	LED_1.blue_port = GPIOB;
+	//strcpy((char*) LED_1.name, "LED1");
+
+	LED_2.red = LED_RED2_Pin;
+	LED_2.red_port = GPIOA;
+	LED_2.green = LED_GREEN2_Pin;
+	LED_2.green_port = GPIOB;
+	LED_2.blue = LED_BLUE2_Pin;
+	LED_2.blue_port = GPIOB;
+	//strcpy((char*) LED_2.name, "LED2");
+
+	g_bedlight.led = LED_1;
+
+}
+
+void switch_LEDs()
+{
+	//if (strcmp((char*) g_bedlight.led.name, "LED1") == 0){
+	//	g_bedlight.led = LED_2;
+	//}
+	//else
+	//	g_bedlight.led = LED_1;
+}
 
 
 uint8_t pressed_button1()

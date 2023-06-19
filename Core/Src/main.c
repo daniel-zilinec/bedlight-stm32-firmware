@@ -90,6 +90,7 @@ int main(void)
   MX_TIM21_Init();
   MX_TIM22_Init();
   /* USER CODE BEGIN 2 */
+  init_LEDs();
 
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
@@ -136,7 +137,11 @@ int main(void)
 
 		  else
 		  {
-			  pwm(0, 0, 0);
+			  //pwm(0, 0, 0);
+			  HAL_GPIO_WritePin(g_bedlight.led.red_port, g_bedlight.led.red, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(g_bedlight.led.green_port, g_bedlight.led.green, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(g_bedlight.led.blue_port, g_bedlight.led.blue, GPIO_PIN_RESET);
+
 		  }
 	  }
 

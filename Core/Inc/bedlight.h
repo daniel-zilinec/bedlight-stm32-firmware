@@ -15,6 +15,18 @@
 
 typedef struct
 {
+	uint16_t red;
+	GPIO_TypeDef *red_port;
+	uint16_t green;
+	GPIO_TypeDef *green_port;
+	uint16_t blue;
+	GPIO_TypeDef *blue_port;
+	//uint8_t name[5];
+
+} LED_t;
+
+typedef struct
+{
 	uint32_t button1_counter;
 	uint32_t button2_counter;
 	uint32_t button3_counter;
@@ -25,7 +37,9 @@ typedef struct
 	uint8_t button4_flag;
 	uint32_t timer;				// count time in milliseconds
 	uint8_t power_off;
+	LED_t led;
 } bedlight_t;
+
 
 extern bedlight_t g_bedlight;
 
@@ -35,6 +49,8 @@ uint8_t pressed_button3();
 uint8_t pressed_button4();
 uint8_t pressed_button_count();
 
+void init_LEDs();
+void switch_LEDs();
 void button1_callback();
 void button2_callback();
 void button3_callback();
