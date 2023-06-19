@@ -21,7 +21,7 @@ typedef struct
 	GPIO_TypeDef *green_port;
 	uint16_t blue;
 	GPIO_TypeDef *blue_port;
-	//uint8_t name[5];
+	uint8_t name[5];
 
 } LED_t;
 

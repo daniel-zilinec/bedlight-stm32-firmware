@@ -7,7 +7,7 @@
 
 
 #include "bedlight.h"
-//#include <string.h>
+#include <string.h>
 
 bedlight_t g_bedlight;
 LED_t LED_1;
@@ -47,7 +47,7 @@ void init_LEDs()
 	LED_1.green_port = GPIOB;
 	LED_1.blue = LED_BLUE1_Pin;
 	LED_1.blue_port = GPIOB;
-	//strcpy((char*) LED_1.name, "LED1");
+	strcpy((char*) LED_1.name, "LED1");
 
 //	LED_2.red = LED_RED2_Pin;
 //	LED_2.red_port = GPIOA;
@@ -63,11 +63,11 @@ void init_LEDs()
 
 void switch_LEDs()
 {
-	//if (strcmp((char*) g_bedlight.led.name, "LED1") == 0){
-	//	g_bedlight.led = LED_2;
-	//}
-	//else
-	//	g_bedlight.led = LED_1;
+	if (strcmp((char*) g_bedlight.led.name, "LED1") == 0){
+		g_bedlight.led = LED_1;
+	}
+	else
+		g_bedlight.led = LED_1;
 }
 
 
