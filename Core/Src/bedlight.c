@@ -63,15 +63,42 @@ void init_LEDs()
 
 void switch_LEDs()
 {
-//	HAL_GPIO_WritePin(g_bedlight.led.red_port, g_bedlight.led.red, GPIO_PIN_RESET);
-//	HAL_GPIO_WritePin(g_bedlight.led.green_port, g_bedlight.led.green, GPIO_PIN_RESET);
-//	HAL_GPIO_WritePin(g_bedlight.led.blue_port, g_bedlight.led.blue, GPIO_PIN_RESET);
+	uint8_t red_state = 0;
+	uint8_t green_state = 0;
+	uint8_t blue_state = 0;
 
+	// check status of the current LED
+	red_state = HAL_GPIO_ReadPin(g_bedlight.led.red_port, g_bedlight.led.red);
+	green_state = HAL_GPIO_ReadPin(g_bedlight.led.green_port, g_bedlight.led.green);
+	blue_state = HAL_GPIO_ReadPin(g_bedlight.led.blue_port, g_bedlight.led.blue);
+
+	// turn off current LED
+	HAL_GPIO_WritePin(g_bedlight.led.red_port, g_bedlight.led.red, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(g_bedlight.led.green_port, g_bedlight.led.green, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(g_bedlight.led.blue_port, g_bedlight.led.blue, GPIO_PIN_RESET);
+
+	// switch LED
 	if (strcmp((char*) g_bedlight.led.name, "LED1") == 0){
 		g_bedlight.led = LED_2;
 	}
 	else
 		g_bedlight.led = LED_1;
+
+
+	// light new LED with the same color as the previous LED for easier comparison
+	if (red_state)
+	{
+		 button1_callback();
+	}
+	if (green_state)
+	{
+		 button2_callback();
+	}
+	if (blue_state)
+	{
+		 button3_callback();
+	}
+
 }
 
 
