@@ -42,20 +42,20 @@ __weak void cycle_callback()
 void init_LEDs()
 {
 	LED_1.red = LED_RED1_Pin;
-	LED_1.red_port = LED_RED1_GPIO_Port;
+	LED_1.red_port = GPIOA;
 	LED_1.green = LED_GREEN1_Pin;
 	LED_1.green_port = GPIOB;
 	LED_1.blue = LED_BLUE1_Pin;
 	LED_1.blue_port = GPIOB;
 	strcpy((char*) LED_1.name, "LED1");
 
-//	LED_2.red = LED_RED2_Pin;
-//	LED_2.red_port = GPIOA;
-//	LED_2.green = LED_GREEN2_Pin;
-//	LED_2.green_port = GPIOB;
-//	LED_2.blue = LED_BLUE2_Pin;
-//	LED_2.blue_port = GPIOB;
-	//strcpy((char*) LED_2.name, "LED2");
+	LED_2.red = LED_RED2_Pin;
+	LED_2.red_port = GPIOB;
+	LED_2.green = LED_GREEN2_Pin;
+	LED_2.green_port = GPIOA;
+	LED_2.blue = LED_BLUE2_Pin;
+	LED_2.blue_port = GPIOA;
+	strcpy((char*) LED_2.name, "LED2");
 
 	g_bedlight.led = LED_1;
 
@@ -63,8 +63,12 @@ void init_LEDs()
 
 void switch_LEDs()
 {
+//	HAL_GPIO_WritePin(g_bedlight.led.red_port, g_bedlight.led.red, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(g_bedlight.led.green_port, g_bedlight.led.green, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(g_bedlight.led.blue_port, g_bedlight.led.blue, GPIO_PIN_RESET);
+
 	if (strcmp((char*) g_bedlight.led.name, "LED1") == 0){
-		g_bedlight.led = LED_1;
+		g_bedlight.led = LED_2;
 	}
 	else
 		g_bedlight.led = LED_1;

@@ -70,8 +70,14 @@ void Error_Handler(void);
 #define BUTTON3_Pin GPIO_PIN_7
 #define BUTTON3_GPIO_Port GPIOA
 #define BUTTON3_EXTI_IRQn EXTI4_15_IRQn
+#define LED_RED2_Pin GPIO_PIN_1
+#define LED_RED2_GPIO_Port GPIOB
+#define LED_BLUE2_Pin GPIO_PIN_8
+#define LED_BLUE2_GPIO_Port GPIOA
 #define LED_RED1_Pin GPIO_PIN_11
 #define LED_RED1_GPIO_Port GPIOA
+#define LED_GREEN2_Pin GPIO_PIN_12
+#define LED_GREEN2_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
